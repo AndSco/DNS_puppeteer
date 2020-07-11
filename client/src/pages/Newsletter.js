@@ -102,7 +102,7 @@ const NewsletterPage = props => {
           style={styles.buttonCopy}
           onClick={() => handleNewsUpload()}
         >
-          UPLOAD TO NEWSLETTER
+          UPLOAD NEWS TO NEWSLETTER
         </button>
       )}
     </div>

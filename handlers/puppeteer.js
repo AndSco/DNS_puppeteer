@@ -1,8 +1,5 @@
 const puppeteer = require("puppeteer");
-const USERNAME = "scorcan";
-const PASSWORD = "Spring2020";
-
-const url = "https://ec.europa.eu/newsroom/representations/item-taskpane.cfm";
+const {USERNAME, PASSWORD, URL} = require("../config");
 
 let browser;
 let page;
@@ -22,7 +19,7 @@ const startPuppeteer = async () => {
 
 const access = async () => {
   try {
-    await page.goto(url);
+    await page.goto(URL);
     await page.waitFor("#username");
     await page.waitFor(1000);
     await page.type("#username", USERNAME, {delay: 300});
@@ -204,7 +201,7 @@ const uploadNewsItem = async newsItem => {
   try {
     const { title, link, teaser, imagePath, section } = newsItem;
     console.log("now uploading", newsItem);
-    
+
     await startCreatingNews();
     await enterNewsTitle(title);
     await enterNewsDetails(link, teaser);
