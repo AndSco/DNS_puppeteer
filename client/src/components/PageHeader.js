@@ -22,6 +22,10 @@ const styles = {
     textAlign: "left",
     justifyContent: "center",
     alignItems: "center",
+    borderBottom: "5px solid #4BB3FD", 
+    marginBottom: 30, 
+    padding: "0 50px"
+
   },
   icon: {
     padding: 20,

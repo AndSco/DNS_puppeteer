@@ -91,6 +91,7 @@ const NewsletterPage = props => {
         imagePath={imagePath}
       />
 
+      <div style={styles.cardContainer}>
       {newsToUpload.length > 0 &&
         newsToUpload.map(news => (
           <NewsCard
@@ -102,19 +103,33 @@ const NewsletterPage = props => {
 
       {newsToUpload.length > 0 && (
         <button style={styles.buttonCopy} onClick={() => handleNewsUpload()}>
-          UPLOAD NEWS TO NEWSLETTER
+          UPLOAD
         </button>
       )}
+      </div>
     </ScreenView>
   );
 }
 
 const styles = {
   buttonCopy: {
-    width: 840,
-    height: 60,
-    color: "white",
-    backgroundColor: "#E5391E"
+    width: 100,
+    height: 100,
+    color: "#1E2019",
+    backgroundColor: "rgb(172, 255, 9)", 
+    position: "absolute", 
+    top: 30,
+    left: "90%", 
+    borderRadius: "50%"
+  },
+
+  cardContainer: {
+    position: "relative", 
+    width: "80%", 
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "1rem 0"
   }
 };
 

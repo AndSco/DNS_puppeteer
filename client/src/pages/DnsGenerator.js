@@ -76,6 +76,7 @@ function DnsGenerator() {
             text={isDnsWordReady ? "DOWNLOAD WORD DOC!" : "SAVE THE DNS AS WORD"}
             onClickFunction={isDnsWordReady ? onDownloadHandler : createWordDoc}
             isReady={isDnsWordReady}
+            icon="word"
           />
 
           <h5>OR</h5>
@@ -84,6 +85,7 @@ function DnsGenerator() {
             text={htmlString ? "COPY HTML" : "FETCH HTML FOR WEBSITE"}
             onClickFunction={htmlString ? onCopyHtml : fetchHtml}
             isReady={htmlString}
+            icon="code"
           />
         </div>
         {isLoading && <Spinner />}
@@ -106,7 +108,8 @@ const styles = {
 
   buttonsContainer: {
     display: "flex", 
-    alignItems: "center"
+    alignItems: "center", 
+    marginTop: 30
   }
 };
 

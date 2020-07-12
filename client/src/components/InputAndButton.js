@@ -58,14 +58,14 @@ const styles = {
     flex: 0.5,
     paddingLeft: 15,
     color: "#1E2019",
-    borderLeft: "2px solid"
+    borderLeft: "2px solid #4bb4fd"
   },
   select: {
     color: "#1E2019",
     flex: 2,
     height: 50,
     border: "none",
-    borderLeft: "2px solid",
+    borderLeft: "2px solid #4bb4fd",
     paddingLeft: "1rem",
     marginRight: "1rem"
   },

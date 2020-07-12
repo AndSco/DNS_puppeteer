@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = props => {
   console.log(props);
   return (
     <div style={styles.navContainer} id="navbar">
       <div style={styles.logoContainer}>
+        <FontAwesomeIcon icon={faRobot} size="2x" color="white" style={{paddingRight: 9, opacity: .7}} />
         <h3 style={styles.logo}>ECRep Automation Tools</h3>
       </div>
       <div style={styles.linksContainer}>
@@ -15,6 +18,7 @@ const Navigation = props => {
               DNS GENERATOR
             </Link>  
           </li>
+          <li>|</li>
           <li>
             <Link to="/newsletter">
               NEWSLETTER AUTOMATOR
@@ -40,7 +44,8 @@ const styles = {
     alignItems: "center"
   },
   logo: {
-    fontWeight: 400
+    fontWeight: 400, 
+    paddingTop: 6
   },
   linksContainer: {
     height: "100%",

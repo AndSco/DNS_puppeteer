@@ -19,25 +19,28 @@ const NewsCard = ({newsItem, removeNewsFromList}) => {
 
 const styles = {
   container: {
-    display: "flex", 
-    flexDirection: "column", 
-    width: "40%", 
-    textAlign: "left", 
-    color: "#282c34", 
-    backgroundColor: "white", 
-    padding: "2rem", 
-    margin: "2rem 0"
-  }, 
+    display: "flex",
+    flexDirection: "column",
+    width: "50%",
+    textAlign: "left",
+    color: "#282c34",
+    backgroundColor: "white",
+    padding: "2rem",
+    margin: "2rem"
+  },
   title: {
-    fontSize: 15
-  }, 
+    fontSize: 15,
+    fontWeight: 300
+  },
   detail: {
-    fontSize: 11
-  }, 
+    fontSize: 11,
+    fontWeight: 100
+  },
   teaser: {
-    fontSize: 12
+    fontSize: 12,
+    fontWeight: 200
   }
-}
+};
 
 
 export default NewsCard;
