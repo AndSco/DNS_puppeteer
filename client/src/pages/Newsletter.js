@@ -3,6 +3,8 @@ import PageHeader from "../components/PageHeader";
 import InputAndButton from "../components/InputAndButton";
 import axios from "axios";
 import NewsCard from "../components/NewsCard";
+import ScreenView from "../components/ScreenView";
+import Paragraph from "../components/Paragraph";
 
 
 const NewsletterPage = props => {
@@ -76,8 +78,9 @@ const NewsletterPage = props => {
   }
 
   return (
-    <div className="screen-view">
+    <ScreenView>
       <PageHeader title="Newsletter Automator" />
+      <Paragraph text="Select the index of the news to insert as per their order on https://ec.europa.eu/malta/news_en, choose the newsletter section and an accompanying photo. When all news are selected, upload them automatically to the Newsletter platform." />
       <InputAndButton
         onSelectFunction={setSection}
         onIndexFunction={setIndex}
@@ -98,14 +101,11 @@ const NewsletterPage = props => {
         ))}
 
       {newsToUpload.length > 0 && (
-        <button
-          style={styles.buttonCopy}
-          onClick={() => handleNewsUpload()}
-        >
+        <button style={styles.buttonCopy} onClick={() => handleNewsUpload()}>
           UPLOAD NEWS TO NEWSLETTER
         </button>
       )}
-    </div>
+    </ScreenView>
   );
 }
 

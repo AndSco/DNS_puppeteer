@@ -24,7 +24,6 @@ const createWordDoc = (configObject) => {
 
 
   for (let section in configObject.content) {
-    // pObj = docx.createP();
     pObj.addText(section, { bold: true, font_size: 14 });
     pObj = docx.createP();
     const sectionArticles = configObject.content[section].articles;

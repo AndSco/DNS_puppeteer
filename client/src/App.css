@@ -1,3 +1,11 @@
+:root{
+    --background: #F7F9F9;
+    --main-title: #1E2019;
+    --blue: #4BB3FD;
+    --grey: #BDC3C7;
+    --highlightGreen: rgb(172, 255, 9);
+}
+
 .App {
   text-align: center;
 }
@@ -7,32 +15,54 @@
 }
 
 .screen-view {
-  background-color: #282c34;
-  min-height: 92vh;
+  background-color: var(--background);
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
-  padding: 30px 0; 
+  padding: 90px 0; 
 }
 
 h2 {
-  font-size: 35px;
+  font-size: 3rem;
+  font-weight: 200;
   margin: 0;
+  color: var(--main-title);
+}
+
+.title-icon {
+  color: var(--grey);
+}
+
+h5 {
+  font-weight: 300;
+  letter-spacing: .2px;
+  margin: 20px;
+}
+
+#navbar {
+  background: #373B44;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #navbar a {
-  color: #282c34;
+  color: var(--background);
 }
 
 #navbar a:hover {
-  color: #E5391E;
+  color: var(--highlightGreen);
 }
 
 #navbar h3 {
-  color: #E5391E;
+  color: var(--background);
+}
+
+.action-button:hover {
+  opacity: .7;
 }
 
 .App-link, a {
@@ -59,13 +89,10 @@ button:focus {
   outline: none; 
 }
 
-/* button:active {
-  transform: scale(.9);
-} */
+button:hover {
+  opacity: .7;
+}
 
-/* button:hover {
-  transform: scale(1.04);
-} */
 
 header p {
   font-size: 20px;
@@ -106,3 +133,24 @@ textarea {
   align-items: center;
 }
   
+
+/* SPINNER */
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  animation: spinner .6s linear infinite;
+}

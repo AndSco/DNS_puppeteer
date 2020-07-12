@@ -1,42 +1,15 @@
-const puppeteer = require("puppeteer");
-const {USERNAME, PASSWORD, URL} = require("../config");
+const { URL_NLETTER } = require("../config");
+const { startPuppeteer, login, waitNavigation } = require("../utils/puppeteer");
+
 
 let browser;
 let page;
-const HEADLESS = false;
 
 const getIframe = async () => {
   const iFrameHandle = await page.$("body > div.popContainer > iframe");
   const frame = await iFrameHandle.contentFrame();
   return frame;
 };
-
-
-const startPuppeteer = async () => {
-  browser = await puppeteer.launch({ headless: HEADLESS });
-  page = await browser.newPage();
-}
-
-const access = async () => {
-  try {
-    await page.goto(URL);
-    await page.waitFor("#username");
-    await page.waitFor(1000);
-    await page.type("#username", USERNAME, {delay: 300});
-    const nextButton = await page.$(
-      "input.btn.btn-primary.btn-block"
-    );
-    await nextButton.click();
-
-    await page.waitFor("#password");
-    await page.waitFor(1000);
-    await page.type("#password", PASSWORD, { delay: 300 });
-    const loginBtn = await page.$("#loginForm > div > input");
-    await loginBtn.click();
-  } catch(err) {
-    console.error(err);
-  }
-}
 
 
 const startCreatingNews = async () => {
@@ -219,8 +192,8 @@ const uploadNewsItem = async newsItem => {
 
 const main = async newsItems => {
   try {
-    await startPuppeteer();
-    await access();
+    [browser, page] = await startPuppeteer();
+    await login(page, URL_NLETTER);
 
     for (const news of newsItems) {
       await uploadNewsItem(news);

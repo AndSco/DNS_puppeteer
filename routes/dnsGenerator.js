@@ -6,6 +6,9 @@ const createDNS = require("../handlers/dnsCreator");
 const createHtml = require("../handlers/htmlCreatorForWebsite");
 const fs = require("fs");
 
+const {saveAsWord, getHtml} = require("../handlers/dnsPuppeteer");
+
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, "public/uploads");
@@ -28,15 +31,6 @@ router.post("/upload", async (req, res, next) => {
     createDNS();
   });
 });
-
-// router.get("/createHtml", async (req, res, next) => {
-//   try {
-//     const htmlString = await createHtml();
-//     res.status(200).json(htmlString);
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
 
 
 router.post("/createHtml", async (req, res, next) => {
@@ -64,6 +58,26 @@ router.get("/download", (req, res, next) => {
   }
 });
 
+
+
+router.post("/dnsPuppeteerWord", async (req, res, next) => {
+  try {
+    const newsObject = await saveAsWord();
+    res.status(200).json(newsObject);
+  } catch(err) {
+    return next(err);
+  }
+})
+
+
+router.post("/dnsPuppeteerHtml", async (req, res, next) => {
+  try {
+    const createdHtml = await getHtml();
+    res.status(200).json(createdHtml);
+  } catch(err) {
+    return next(err);
+  }
+})
 
 module.exports = router;
 

@@ -9,7 +9,8 @@ const PageHeader = props => {
       <FontAwesomeIcon
         icon={props.dns ? faNewspaper : faEnvelopeOpenText}
         style={styles.icon}
-        size="2x"
+        size="3x"
+        className="title-icon"
       />
     </div>
   );
@@ -18,20 +19,13 @@ const PageHeader = props => {
 const styles = {
   topPart: {
     display: "flex",
-    // flexDirection: "column",
     textAlign: "left",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 40,
-    marginTop: 30
   },
   icon: {
     padding: 20,
-    border: "2px solid white",
-    borderRadius: "50%",
-    width: "20px", 
-    height: "20px",
-    marginLeft: ".4em"
+    marginLeft: ".3em"
   }
 };
 

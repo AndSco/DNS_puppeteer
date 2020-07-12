@@ -1,8 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const puppeteerUpload = require("./puppeteer");
-
+const newsletterPuppeteer = require("./newsletterPuppeteer");
 
 exports.createNews = async (req, res, next) => {
   const { data } = await axios.get("https://ec.europa.eu/malta/news_en");
@@ -27,7 +26,6 @@ exports.createNews = async (req, res, next) => {
     .find(".field-name-title-field")
     .find("a")
     .attr("href");
-  console.log("LINK", link);
   const teaser = $(selectedNews)
     .find(".reps_ne_body")
     .find("p")
@@ -45,7 +43,7 @@ exports.createNews = async (req, res, next) => {
 exports.uploadNews = async (req, res, next) => {
   try {
     const {newsItems} = req.body;
-    await puppeteerUpload(newsItems);
+    await newsletterPuppeteer(newsItems);
     res.json("News uploaded!");
   } catch(err) {
     return next(err);

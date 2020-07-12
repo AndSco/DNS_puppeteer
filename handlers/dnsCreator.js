@@ -1,5 +1,4 @@
 const createDoc = require("./wordCreator");
-const months = require("./months");
 const createNewsObject = require("./newsObjectCreator");
 
 

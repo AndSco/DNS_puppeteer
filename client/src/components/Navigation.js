@@ -6,7 +6,7 @@ const Navigation = props => {
   return (
     <div style={styles.navContainer} id="navbar">
       <div style={styles.logoContainer}>
-        <h3 style={styles.logo}>ECRep Tools</h3>
+        <h3 style={styles.logo}>ECRep Automation Tools</h3>
       </div>
       <div style={styles.linksContainer}>
         <ul style={styles.links}>
@@ -28,7 +28,7 @@ const Navigation = props => {
 
 const styles = {
   navContainer: {
-    height: "8vh",
+    height: 70,
     maxWidth: "100vw",
     display: "flex",
     justifyContent: "space-between",
@@ -40,7 +40,7 @@ const styles = {
     alignItems: "center"
   },
   logo: {
-    fontWeight: "bold"
+    fontWeight: 400
   },
   linksContainer: {
     height: "100%",
@@ -55,8 +55,9 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#282c34"
+    fontWeight: 300,
+    color: "#282c34", 
+    padding: "0 30px"
   }
 };
 

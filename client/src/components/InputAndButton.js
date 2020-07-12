@@ -1,7 +1,6 @@
 import React from "react";
 
 
-
 const InputAndButton = props => {
   return (
     <div style={styles.container}>
@@ -52,24 +51,27 @@ const styles = {
     display: "flex",
     height: 50,
     width: 840,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    marginTop: 50
   },
   input: {
     flex: 0.5,
     paddingLeft: 15,
-    borderLeft: "3px solid",
+    color: "#1E2019",
+    borderLeft: "2px solid"
   },
   select: {
+    color: "#1E2019",
     flex: 2,
     height: 50,
     border: "none",
-    borderLeft: "3px solid",
-    paddingLeft: "1rem", 
+    borderLeft: "2px solid",
+    paddingLeft: "1rem",
     marginRight: "1rem"
   },
   button: {
     flex: 1,
-    backgroundColor: "#7F8C8D",
+    backgroundColor: "#4BB3FD",
     color: "white"
   }
 };

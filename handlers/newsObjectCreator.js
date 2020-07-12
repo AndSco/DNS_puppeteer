@@ -1,103 +1,92 @@
 const cheerio = require("cheerio");
-const fs = require("fs");
 const createUrl = require("./linkManager");
 const dates = require("./dateManagement");
 const { replaceHtmlEntites } = require("./htmlSymbols");
 
-const createNewsObject = () => {
-  return new Promise((resolve, reject) => {
-    fs.readFile("public/uploads/DPR & DNS.html", async (err, data) => {
-      if (err) {
-        throw err; // this rejects anyway
-        // reject("Problems reading file");
-      } else {
-        const $ = await cheerio.load(data, {
-          xml: {
-            normalizeWhitespace: true
-          }
-        });
 
-        const secTitles = await $(".center_heading_medium");
-        const thematicSections = [];
+const createNewsObject = async pageHtml => {
+  const $ = await cheerio.load(pageHtml, {
+    xml: {
+      normalizeWhitespace: true
+    }
+  });
 
-        const dnsObject = {
-          date: dates.formattedDate
-        };
+  const secTitles = await $(".center_heading_medium");
+  const thematicSections = [];
 
-        const recursion = (destination, startingElement) => {
-          const destinationArray = thematicSections[destination].articles;
-          const firstElement = startingElement;
+  const dnsObject = {
+    date: dates.formattedDate
+  };
 
-          const groupSections = async startElement => {
-            const nextSibling = await $(startElement).next();
-            if ($(nextSibling).attr("class") === "articlebox_big") {
-              const articleObj = {};
-              let linksArray = [];
-              const articleTitle = replaceHtmlEntites(
-                $(nextSibling)
-                  .find(".center_heading_small")
-                  .text()
-              );
-              const articleBody = replaceHtmlEntites(
-                $(nextSibling)
-                  .find(".center_leadin")
-                  .text()
-              );
+  const recursion = (destination, startingElement) => {
+    const destinationArray = thematicSections[destination].articles;
+    const firstElement = startingElement;
 
-              const articleLinks = $(nextSibling)
-                .find(".dns_center_headline_source")
-                .each((index, elem) => {
-                  const allLink = replaceHtmlEntites(
-                    $(elem).text()
-                  );
-                  const indexToCut = allLink.indexOf("-MT:");
-                  const restOfLink = allLink.slice(indexToCut + 4);
-                  const hyperLinkText = $(elem)
-                    .find("b")
-                    .first()
-                    .text()
-                    .replace("km-", "")
-                    .replace("-MT", "")
-                    .replace(":", "");
+    const groupSections = async startElement => {
+      const nextSibling = await $(startElement).next();
+      if ($(nextSibling).attr("class") === "articlebox_big") {
+        const articleObj = {};
+        let linksArray = [];
+        const articleTitle = replaceHtmlEntites(
+          $(nextSibling)
+            .find(".center_heading_small")
+            .text()
+        );
+        const articleBody = replaceHtmlEntites(
+          $(nextSibling)
+            .find(".center_leadin")
+            .text()
+        );
 
-                  const linkObj = {};
-                  linkObj.text = `${hyperLinkText}: ${restOfLink}`;
-                  linkObj.sourceNewspaper = hyperLinkText;
-                  linkObj.hyperLinkUrl = createUrl(hyperLinkText);
-                  linkObj.restOfLink = restOfLink;
+        const articleLinks = $(nextSibling)
+          .find(".dns_center_headline_source")
+          .each((index, elem) => {
+            const allLink = replaceHtmlEntites($(elem).text());
+            const indexToCut = allLink.indexOf("-MT:");
+            const restOfLink = allLink.slice(indexToCut + 4);
+            const hyperLinkText = $(elem)
+              .find("b")
+              .first()
+              .text()
+              .replace("km-", "")
+              .replace("-MT", "")
+              .replace(":", "");
 
-                  linksArray.push(linkObj);
-                });
+            const linkObj = {};
+            linkObj.text = `${hyperLinkText}: ${restOfLink}`;
+            linkObj.sourceNewspaper = hyperLinkText;
+            linkObj.hyperLinkUrl = createUrl(hyperLinkText);
+            linkObj.restOfLink = restOfLink;
 
-              articleObj.title = articleTitle;
-              articleObj.body = articleBody;
-              articleObj.links = linksArray;
+            linksArray.push(linkObj);
+          });
 
-              destinationArray.push(articleObj);
-              groupSections(nextSibling);
-            }
-            return;
-          };
-          return groupSections(firstElement);
-        };
+        articleObj.title = articleTitle;
+        articleObj.body = articleBody;
+        articleObj.links = linksArray;
 
-        await secTitles.each((index, elem) => {
-          const title = $(elem)
-            .children()
-            .first()
-            .text();
-          thematicSections[title] = { articles: [] };
-          recursion(title, elem);
-        });
-
-        dnsObject.content = thematicSections;
-        console.log("OBJECT", dnsObject);
-        resolve(dnsObject);
+        destinationArray.push(articleObj);
+        groupSections(nextSibling);
       }
-    });
-  }
-)};
+      return;
+    };
+    return groupSections(firstElement);
+  };
+
+  await secTitles.each((index, elem) => {
+    const title = $(elem)
+      .children()
+      .first()
+      .text();
+    thematicSections[title] = { articles: [] };
+    recursion(title, elem);
+  });
+
+  dnsObject.content = thematicSections;
+  console.log("OBJECT", dnsObject);
+  return dnsObject;
+};
+
 
 module.exports = createNewsObject;
-
 
