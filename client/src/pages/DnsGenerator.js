@@ -15,17 +15,21 @@ function DnsGenerator() {
 
 
   const createWordDoc = async () => {
-    if (isLoading) return;
-    setIsLoading(true);
-    const url =
-      process.env.NODE_ENV === "production"
-        ? "/api/dns/dnsPuppeteerWord"
-        : "http://localhost:8081/api/dns/dnsPuppeteerWord";
+    try {
+      if (isLoading) return;
+      setIsLoading(true);
+      const url =
+        process.env.NODE_ENV === "production"
+          ? "/api/dns/dnsPuppeteerWord"
+          : "http://localhost:8081/api/dns/dnsPuppeteerWord";
 
-    await axios.post(url);
-    console.log("Conversion done")
-    setIsDnsWordReady(true);
-    setIsLoading(false);
+      await axios.post(url);
+      console.log("Conversion done");
+      setIsDnsWordReady(true);
+      setIsLoading(false);
+    } catch(err) {
+      console.error(err);
+    }
   };
 
 
