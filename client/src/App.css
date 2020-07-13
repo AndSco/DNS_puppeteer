@@ -20,7 +20,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
   padding: 60px 0; 
@@ -106,33 +105,6 @@ textarea {
   color: black;
 }
 
-#content {
-  background-color: white;
-  padding: 2em;
-  border-radius: 10px;
-  -webkit-box-shadow: 4px 4px 6px -4px rgba(0,0,0,0.75);
-  -moz-box-shadow: 4px 4px 6px -4px rgba(0,0,0,0.75);
-  box-shadow: 4px 4px 6px -4px rgba(0,0,0,0.75);
-}
-
-#content input {
-  background: grey;
-  padding: 6px;
-}
-
-.number {
-  color: #282c34;
-  margin-right: 15px;
-  font-size: 25px;
-  border-radius: 50%;
-  border: 2px solid #282c34;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-  
 
 /* SPINNER */
 @keyframes spinner {
