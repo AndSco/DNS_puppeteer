@@ -1,7 +1,6 @@
 const { URL_NLETTER } = require("../config");
 const { startPuppeteer, login } = require("../utils/puppeteer");
 
-
 let browser;
 let page;
 
@@ -201,7 +200,6 @@ const main = async newsItems => {
     }
     
     await browser.close();
-    
   } catch (err) {
     console.error(err);
   }
