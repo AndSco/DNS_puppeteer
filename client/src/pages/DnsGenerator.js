@@ -38,7 +38,7 @@ function DnsGenerator() {
     setIsLoading(true);
     const url =
       process.env.NODE_ENV === "production"
-        ? "/api/dns//dnsPuppeteerHtml"
+        ? "/api/dns/dnsPuppeteerHtml"
         : "http://localhost:8081/api/dns//dnsPuppeteerHtml";
     
     const {data} = await axios.post(url);
