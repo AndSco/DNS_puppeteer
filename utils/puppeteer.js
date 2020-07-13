@@ -1,8 +1,6 @@
 const puppeteer = require("puppeteer");
 const { USERNAME, PASSWORD } = require("../config");
 
-
-
 exports.startPuppeteer = async (HEADLESS = false) => {
   const browser = await puppeteer.launch({ headless: HEADLESS, args: ["--no-sandbox"] });
   const page = await browser.newPage();

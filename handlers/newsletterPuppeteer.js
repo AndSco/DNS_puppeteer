@@ -192,7 +192,7 @@ const uploadNewsItem = async newsItem => {
 
 const main = async newsItems => {
   try {
-    [browser, page] = await startPuppeteer();
+    [browser, page] = await startPuppeteer(true);
     await login(page, URL_NLETTER);
 
     for (const news of newsItems) {
