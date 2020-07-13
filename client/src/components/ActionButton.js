@@ -9,7 +9,7 @@ const ActionButton = ({text, onClickFunction, isReady, icon}) => {
     <div
       style={{
         ...styles.button,
-        backgroundColor: isReady ? "rgb(172, 255, 9)" : "#4BB3FD",
+        backgroundColor: isReady ? "#FFE800" : "#4BB3FD",
         color: isReady ? "#1C2833" : "#F7F9F9"
       }}
       onClick={onClickFunction}

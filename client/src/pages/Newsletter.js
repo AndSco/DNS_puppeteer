@@ -116,7 +116,7 @@ const styles = {
     width: 100,
     height: 100,
     color: "#1E2019",
-    backgroundColor: "rgb(172, 255, 9)", 
+    backgroundColor: "#FFE800", 
     position: "absolute", 
     top: 30,
     left: "90%", 

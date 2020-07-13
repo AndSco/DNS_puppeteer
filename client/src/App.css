@@ -3,7 +3,7 @@
     --main-title: #1E2019;
     --blue: #4BB3FD;
     --grey: #BDC3C7;
-    --highlightGreen: rgb(172, 255, 9);
+    --yellow: #FFE800;
 }
 
 .App {
@@ -23,7 +23,7 @@
   /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
-  padding: 90px 0; 
+  padding: 60px 0; 
 }
 
 h2 {
@@ -54,7 +54,7 @@ h5 {
 }
 
 #navbar a:hover {
-  color: var(--highlightGreen);
+  color: var(--yellow);
 }
 
 #navbar h3 {

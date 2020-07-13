@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const dates = require("./handlers/dateManagement");
 const path = require("path");
 const bodyParser = require("body-parser");
 const dnsRoutes = require("./routes/dnsGenerator");
 const newsletterRoutes = require("./routes/newsletter");
+const loginRoute = require("./routes/login");
 
 
 
@@ -19,6 +19,7 @@ app.use(cors());
 
 app.use("/api/dns", dnsRoutes);
 app.use("/api/newsletter", newsletterRoutes);
+app.use("/api", loginRoute);
 
 // To serve both frontend and backend - catch ALL. Serve static assets only if in production. 
 if (process.env.NODE_ENV === "production") {
