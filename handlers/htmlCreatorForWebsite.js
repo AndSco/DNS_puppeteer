@@ -1,6 +1,3 @@
-const createNewsObject = require("./newsObjectCreator");
-
-
 const createHtml = async (newsObj) => {
   console.log("news obj for html", newsObj);
   let htmlString = "";
