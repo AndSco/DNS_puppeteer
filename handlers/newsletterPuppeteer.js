@@ -1,5 +1,5 @@
 const { URL_NLETTER } = require("../config");
-const { startPuppeteer, login, waitNavigation } = require("../utils/puppeteer");
+const { startPuppeteer, login } = require("../utils/puppeteer");
 
 
 let browser;
@@ -77,7 +77,7 @@ const addPicture = async imagePath => {
     frame = await getIframe();
     await frame.waitFor("#new_file");
     const inputUploadHandle = await frame.$("#new_file");
-    await inputUploadHandle.uploadFile(imagePath);
+    await inputUploadHandle.uploadFile(`./${imagePath}`);
     const savePicBtn = await frame.$("body > div > a");
     await savePicBtn.click();
   } catch(err) {
@@ -192,7 +192,8 @@ const uploadNewsItem = async newsItem => {
 
 const main = async newsItems => {
   try {
-    [browser, page] = await startPuppeteer(true);
+    const headlessOption = process.env.NODE_ENV === "production" ? true : false;
+    [browser, page] = await startPuppeteer(headlessOption);
     await login(page, URL_NLETTER);
 
     for (const news of newsItems) {

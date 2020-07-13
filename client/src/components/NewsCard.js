@@ -11,7 +11,7 @@ const NewsCard = ({newsItem, removeNewsFromList}) => {
       <h4 style={styles.detail}>{link}</h4>
       <p style={styles.teaser}>{teaser}</p>
       <h4 style={styles.detail}>{section}</h4>
-      <h4 style={styles.detail}>{imagePath.slice(0, 40)}...</h4>
+      <h4 style={styles.detail}>{imagePath}</h4>
       <FontAwesomeIcon icon={faTrashAlt} style={{alignSelf: "flex-end", cursor: "pointer"}} onClick={() => removeNewsFromList(newsItem)} />
     </div>
   );

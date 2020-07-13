@@ -13,7 +13,7 @@ const NewsletterPage = props => {
   const [imagePath, setImagePath] = useState("");
   const [newsToUpload, setNewsToUpload] = useState([]);
 
-  useEffect(() => console.log(newsToUpload), [newsToUpload])
+  useEffect(() => console.log("path", imagePath), [imagePath])
 
   const resetForm = () => {
     setNewsSection("");
@@ -29,14 +29,32 @@ const NewsletterPage = props => {
     setNewsIndex(index);
   }
 
-  const saveImagePath = path => {
-    setImagePath(path);
+
+  const uploadImage = async (e) => {
+    try {
+      const url =
+        process.env.NODE_ENV === "production"
+          ? "/api/newsletter/uploadImage"
+          : "http://localhost:8081/api/newsletter/uploadImage";
+          
+          
+      const imageData = new FormData();
+      const fileToUpload = e.target.files[0];;
+      imageData.append("imageFile", fileToUpload);
+      const response = await axios.post(url, imageData);
+      const { data: path } = response;
+      setImagePath(path);
+
+    } catch(err) {
+      console.error(err);
+      
+    }
   }
   
 
   const getNews = () => {
     if (newsIndex === "" || newsSection === "" || imagePath === "") {
-      alert("Enter an index and a section!");
+      alert("Enter an index, a section and an image!");
       return;
     }
     const url =
@@ -85,27 +103,26 @@ const NewsletterPage = props => {
         onSelectFunction={setSection}
         onIndexFunction={setIndex}
         onClickFunction={getNews}
-        onImagePathFunction={saveImagePath}
         index={newsIndex}
         section={newsSection}
-        imagePath={imagePath}
+        uploadImage={uploadImage}
       />
 
       <div style={styles.cardContainer}>
-      {newsToUpload.length > 0 &&
-        newsToUpload.map(news => (
-          <NewsCard
-            key={news.title}
-            newsItem={news}
-            removeNewsFromList={removeNewsFromList}
-          />
-        ))}
+        {newsToUpload.length > 0 &&
+          newsToUpload.map(news => (
+            <NewsCard
+              key={news.title}
+              newsItem={news}
+              removeNewsFromList={removeNewsFromList}
+            />
+          ))}
 
-      {newsToUpload.length > 0 && (
-        <button style={styles.buttonCopy} onClick={() => handleNewsUpload()}>
-          UPLOAD
-        </button>
-      )}
+        {newsToUpload.length > 0 && (
+          <button style={styles.buttonCopy} onClick={() => handleNewsUpload()}>
+            UPLOAD
+          </button>
+        )}
       </div>
     </ScreenView>
   );

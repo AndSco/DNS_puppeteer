@@ -7,7 +7,7 @@ import Login from "./components/Login";
 
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const logUserIn = () => setIsLoggedIn(true);
   const logUserOut = () => setIsLoggedIn(false);
 

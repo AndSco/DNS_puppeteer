@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-
 const newsletterPuppeteer = require("./newsletterPuppeteer");
+
 
 exports.createNews = async (req, res, next) => {
   const { data } = await axios.get("https://ec.europa.eu/malta/news_en");

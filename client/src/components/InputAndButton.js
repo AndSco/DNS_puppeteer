@@ -30,15 +30,25 @@ const InputAndButton = props => {
         <option value="Economic Governance">Economic Governance</option>
         <option value="Europe Direct Corner">Europe Direct Corner</option>
       </select>
-      <input
+
+      {/* <input
         type="text"
         placeholder="copy image path"
-        style={{...styles.input, flex: 3}}
+        style={{ ...styles.input, flex: 3 }}
         onChange={e => {
           props.onImagePathFunction(e.target.value);
         }}
         value={props.imagePath}
+      /> */}
+
+      <input
+        type="file"
+        name="imageFile"
+        placeholder="upload image"
+        style={{ ...styles.input, paddingTop: 15 }}
+        onChange={props.uploadImage}
       />
+
       <button style={styles.button} onClick={props.onClickFunction}>
         ADD NEWS
       </button>
