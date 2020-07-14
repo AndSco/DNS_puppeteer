@@ -73,11 +73,13 @@ function DnsGenerator() {
   return (
     <ScreenView>
       <PageHeader title="DNS GENERATOR" icon="faNewspaper" dns />
-      <Paragraph text="Automatically format the Daily News Summary for Malta and either save it as a Word doc ready to be emailed, or extract the formatted HTML to upload it on the website" />
+      <Paragraph text="Format automatically the Daily News Summary for Malta and either save it as a Word doc ready to be e-mailed, or generate the structured HTML to upload it on the website" />
       <main style={styles.mainContainer}>
         <div style={styles.buttonsContainer}>
           <ActionButton
-            text={isDnsWordReady ? "DOWNLOAD WORD DOC!" : "SAVE THE DNS AS WORD"}
+            text={
+              isDnsWordReady ? "DOWNLOAD WORD DOC!" : "SAVE THE DNS AS WORD"
+            }
             onClickFunction={isDnsWordReady ? onDownloadHandler : createWordDoc}
             isReady={isDnsWordReady}
             icon="word"
@@ -94,11 +96,11 @@ function DnsGenerator() {
         </div>
         {isLoading && <Spinner />}
 
-        {htmlString && 
+        {htmlString && (
           <div>
             <HtmlContainer contentString={htmlString} />
-          </div>  
-        }
+          </div>
+        )}
       </main>
     </ScreenView>
   );

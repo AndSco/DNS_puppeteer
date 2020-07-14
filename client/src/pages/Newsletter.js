@@ -5,6 +5,7 @@ import axios from "axios";
 import NewsCard from "../components/NewsCard";
 import ScreenView from "../components/ScreenView";
 import Paragraph from "../components/Paragraph";
+import Spinner from "../components/Spinner";
 
 
 const NewsletterPage = props => {
@@ -12,6 +13,8 @@ const NewsletterPage = props => {
   const [newsIndex, setNewsIndex] = useState("");
   const [imagePath, setImagePath] = useState("");
   const [newsToUpload, setNewsToUpload] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isNewsUploadOver, setIsNewsUploadOver] = useState(false);
 
   useEffect(() => console.log("path", imagePath), [imagePath])
 
@@ -84,21 +87,32 @@ const NewsletterPage = props => {
   }
 
   const handleNewsUpload = async () => {
+    setIsLoading(true);
     const url =
       process.env.NODE_ENV === "production"
         ? "/api/newsletter/uploadNews"
         : "http://localhost:8081/api/newsletter/uploadNews";
     
-    const response = await axios.post(url, {newsItems: newsToUpload});
+    // const response = await axios.post(url, {newsItems: newsToUpload});
+    const response = await axios({
+      method: 'post',
+      url: url, 
+      data: {
+        newsItems: newsToUpload
+      }, 
+      timeout: 6 * 60 * 1000
+    });
 
     const operationResult = await response.data;
     console.log("oper res", operationResult);
+    setIsLoading(false);
+    setIsNewsUploadOver(true);
   }
 
   return (
     <ScreenView>
       <PageHeader title="Newsletter Automator" />
-      <Paragraph text="Select the index of the news to insert as per their order on https://ec.europa.eu/malta/news_en, choose the newsletter section and an accompanying photo. When all news are selected, upload them automatically to the Newsletter platform." />
+      <Paragraph text="Select the index of the news to insert, as listed on https://ec.europa.eu/malta/news_en, choose the newsletter section & an accompanying photo. When all news are selected, upload them automatically to the Newsletter platform." />
       <InputAndButton
         onSelectFunction={setSection}
         onIndexFunction={setIndex}
@@ -109,6 +123,7 @@ const NewsletterPage = props => {
       />
 
       <div style={styles.cardContainer}>
+        {isLoading && <Spinner />}
         {newsToUpload.length > 0 &&
           newsToUpload.map(news => (
             <NewsCard
@@ -118,10 +133,12 @@ const NewsletterPage = props => {
             />
           ))}
 
-        {newsToUpload.length > 0 && (
+        {newsToUpload.length > 0 && !isNewsUploadOver && !isLoading ? (
           <button style={styles.buttonCopy} onClick={() => handleNewsUpload()}>
             UPLOAD
           </button>
+        ) : (
+          isNewsUploadOver && <h2 style={{cursor: "pointer"}} onClick={() => setIsNewsUploadOver(false)}>News uploaded! Load more</h2>
         )}
       </div>
     </ScreenView>

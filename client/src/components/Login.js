@@ -29,7 +29,7 @@ const Login = ({logUserIn}) => {
       <h2>Enter password to log in</h2>
       <div style={{display: "flex", alignItems: "flex-end"}}>
         <input type="password" style={styles.input} value={userInput} onChange={handleChange} />
-        <button style={styles.button} onClick={tryLogin}>Access</button>
+        <button style={styles.button} onClick={tryLogin}>ACCESS</button>
       </div>  
     </div>  
   )
@@ -52,9 +52,11 @@ const styles = {
     fontSize: 25
   }, 
   button: {
-    height: 40, 
+    height: 50, 
     padding: "0 30px", 
-    marginLeft: 20
+    marginLeft: 20, 
+    backgroundColor: "#4BB3FD",
+    color: "white"
   }
 }
 
