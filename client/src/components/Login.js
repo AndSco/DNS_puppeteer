@@ -27,12 +27,24 @@ const Login = ({logUserIn}) => {
   return (
     <div style={styles.container}>
       <h2>Enter password to log in</h2>
-      <div style={{display: "flex", alignItems: "flex-end"}}>
-        <input type="password" style={styles.input} value={userInput} onChange={handleChange} />
-        <button style={styles.button} onClick={tryLogin}>ACCESS</button>
-      </div>  
-    </div>  
-  )
+      <div style={{ display: "flex", alignItems: "flex-end" }}>
+        <input
+          type="password"
+          style={styles.input}
+          value={userInput}
+          onChange={handleChange}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              tryLogin();
+            }
+          }}
+        />
+        <button style={styles.button} onClick={tryLogin}>
+          ACCESS
+        </button>
+      </div>
+    </div>
+  );
 }
 
 const styles = {
