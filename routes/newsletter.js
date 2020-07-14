@@ -3,12 +3,6 @@ const router = express.Router();
 const {createNews, uploadNews} = require("../handlers/newsletter");
 const multer = require("multer");
 const path = require("path");
-
-
-router.get("/createJsonNews", createNews);
-router.post("/uploadNews", uploadNews);
-
-
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, "public/uploads");
@@ -17,9 +11,12 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
-
 const upload = multer({ storage: storage }).single("imageFile");
+const { deleteAllImagesInUploadsFolder } = require("../handlers/fileSystem");
 
+
+router.get("/createJsonNews", createNews);
+router.post("/uploadNews", uploadNews);
 router.post("/uploadImage", async (req, res, next) => {
   await upload(req, res, function(err) {
     if (err instanceof multer.MulterError) {

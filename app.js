@@ -8,7 +8,6 @@ const newsletterRoutes = require("./routes/newsletter");
 const loginRoute = require("./routes/login");
 
 
-
 app.use(express.static(path.join(__dirname, "public")));
 
 // BODY PARSER
