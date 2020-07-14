@@ -64,6 +64,8 @@ const createNewsObject = async pageHtml => {
         articleObj.title = articleTitle;
         articleObj.body = articleBody;
         articleObj.links = linksArray;
+        articleObj.section = destination;
+        console.log("SECTION", destination);
 
         destinationArray.push(articleObj);
         groupSections(nextSibling);
@@ -83,7 +85,6 @@ const createNewsObject = async pageHtml => {
   });
 
   dnsObject.content = thematicSections;
-  console.log("OBJECT", dnsObject);
   return dnsObject;
 };
 

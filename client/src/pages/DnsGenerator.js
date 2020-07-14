@@ -6,12 +6,30 @@ import ActionButton from "../components/ActionButton";
 import Spinner from "../components/Spinner";
 import ScreenView from "../components/ScreenView";
 import Paragraph from "../components/Paragraph";
+import DnsItemsNumberForm from "../components/DnsItemsNumberForm";
+import {extractIndexes} from "../utils";
 
 
 function DnsGenerator() {
   const [isDnsWordReady, setIsDnsWordReady] = useState(false);
   const [htmlString, setHtmlString] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isIndexFormOpen, setIsIndexFormOpen] = useState(false);
+
+
+  const openNewsIndexForm = () => {
+    setIsIndexFormOpen(true);
+  }
+
+  const closeNewsIndexForm = (input) => {
+    const indexesToUpload = extractIndexes(input);
+     if (!indexesToUpload) {
+       alert("Enter at least one index!");
+       return;
+     }
+    setIsIndexFormOpen(false);
+    fetchHtml(indexesToUpload);
+  };
 
 
   const createWordDoc = async () => {
@@ -33,15 +51,15 @@ function DnsGenerator() {
   };
 
 
-  const fetchHtml = async () => {
-    if (isLoading) return;
+  const fetchHtml = async (newsIndexes) => {
+    if (isLoading) return;    
     setIsLoading(true);
     const url =
       process.env.NODE_ENV === "production"
         ? "/api/dns/dnsPuppeteerHtml"
         : "http://localhost:8081/api/dns//dnsPuppeteerHtml";
     
-    const {data} = await axios.post(url);
+    const { data } = await axios.post(url, { newsIndexes: newsIndexes });
     console.log("HTML", data);  
     setHtmlString(data); 
     setIsLoading(false);
@@ -69,6 +87,13 @@ function DnsGenerator() {
     }, 100);
   };
 
+  if (isIndexFormOpen) {
+    return (
+      <DnsItemsNumberForm
+        closeNewsIndexForm={closeNewsIndexForm}
+      />
+    );
+  }
 
   return (
     <ScreenView>
@@ -89,7 +114,7 @@ function DnsGenerator() {
 
           <ActionButton
             text={htmlString ? "COPY HTML" : "FETCH HTML FOR WEBSITE"}
-            onClickFunction={htmlString ? onCopyHtml : fetchHtml}
+            onClickFunction={htmlString ? onCopyHtml : openNewsIndexForm}
             isReady={htmlString}
             icon="code"
           />

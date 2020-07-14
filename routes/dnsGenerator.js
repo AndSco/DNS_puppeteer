@@ -27,7 +27,8 @@ router.post("/dnsPuppeteerWord", async (req, res, next) => {
 
 router.post("/dnsPuppeteerHtml", async (req, res, next) => {
   try {
-    const createdHtml = await getHtml();
+    const {newsIndexes} = req.body;
+    const createdHtml = await getHtml(newsIndexes);
     res.status(200).json(createdHtml);
   } catch(err) {
     return next(err);

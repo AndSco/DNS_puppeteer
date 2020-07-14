@@ -1,19 +1,16 @@
 import React, {useState} from "react";
 import axios from "axios";
+import Input from "./Input";
 
 const Login = ({logUserIn}) => {
-  const [userInput, setUserInput] = useState("");
-  const handleChange = e => {
-    setUserInput(e.target.value);
-  }
-
-  const tryLogin = async () => {
+  
+  const tryLogin = async (input) => {
     const url =
       process.env.NODE_ENV === "production"
         ? "/api/login"
         : "http://localhost:8081/api/login";
     
-    const response = await axios.post(url, {password: userInput});    
+    const response = await axios.post(url, {password: input});    
     const isValid = response.data;
 
     if (isValid) {
@@ -25,51 +22,15 @@ const Login = ({logUserIn}) => {
 
 
   return (
-    <div style={styles.container}>
-      <h2>Enter password to log in</h2>
-      <div style={{ display: "flex", alignItems: "flex-end" }}>
-        <input
-          type="password"
-          style={styles.input}
-          value={userInput}
-          onChange={handleChange}
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              tryLogin();
-            }
-          }}
-        />
-        <button style={styles.button} onClick={tryLogin}>
-          ACCESS
-        </button>
-      </div>
-    </div>
+    <Input
+      inputExplanation="Enter password to log in"
+      type="password"
+      functionOnSubmit={tryLogin}
+      buttonText="access"
+    />
   );
 }
 
-const styles = {
-  container: {
-    width: "100vw", 
-    height: "100vh",
-    display: "flex", 
-    flexDirection: "column", 
-    justifyContent: "center", 
-    alignItems: "center"
-  }, 
-  input: {
-    width: 300, 
-    borderBottom: "1px solid",
-    marginTop: 30, 
-    padding: 6, 
-    fontSize: 25
-  }, 
-  button: {
-    height: 50, 
-    padding: "0 30px", 
-    marginLeft: 20, 
-    backgroundColor: "#4BB3FD",
-    color: "white"
-  }
-}
+
 
 export default Login;

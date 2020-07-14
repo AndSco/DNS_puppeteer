@@ -1,7 +1,7 @@
 const {startPuppeteer, login} = require("../utils/puppeteer");
 const createNewsObject = require("./newsObjectCreator");
 const createWord = require("./wordCreator");
-const fetchHtml = require("./htmlCreatorForWebsite");
+const fetchHtml = require("./fetchHtmlForWebsite");
 const { URL_DNS } = require("../config");
 
 
@@ -34,10 +34,9 @@ exports.saveAsWord = async () => {
 }
 
 
-exports.getHtml = async () => {
+exports.getHtml = async (newsIndexes) => {
   const jsonObj = await scrapeDns();
-  const htmlString = await fetchHtml(jsonObj);
-  console.log("HTML STR", htmlString);
+  const htmlString = await fetchHtml(jsonObj, newsIndexes);
   return htmlString;
 }
 
