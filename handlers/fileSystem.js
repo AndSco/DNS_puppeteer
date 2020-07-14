@@ -4,10 +4,11 @@ const directory = "public/uploads";
 
 const goOnAndDelete = () => {
   fs.readdir(directory, (err, files) => {
-    if (err) throw err;
+    if (err) console.error(err);
+    
+    console.log(`There are ${files.length} pictures in the uploads folder`)
     
     if (files.length === 0) {
-      console.log("Folder is empty!");
       return;
     }
 

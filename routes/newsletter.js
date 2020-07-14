@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage }).single("imageFile");
-const { deleteAllImagesInUploadsFolder } = require("../handlers/fileSystem");
 
 
 router.get("/createJsonNews", createNews);
@@ -27,6 +26,7 @@ router.post("/uploadImage", async (req, res, next) => {
     console.log("req.file", req.file);
     const { path } = req.file;
     res.status(200).json(path);
+    // res.status(200).json(`./${path}`);
   });
 });
 
