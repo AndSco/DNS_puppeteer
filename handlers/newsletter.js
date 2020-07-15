@@ -14,7 +14,6 @@ exports.createNews = async (req, res, next) => {
   const newsContainer = $(".view-content");
   const newsBatches = $(newsContainer).children();
   const selectedNews = $(newsBatches[index]);
-  // console.log("the selected news", $(newsBatches[index]));
   const newsObj = {};
   const title = $(selectedNews)
     .find(".reps_ne_title")
@@ -42,6 +41,8 @@ exports.createNews = async (req, res, next) => {
 
 exports.uploadNews = async (req, res, next) => {
   try {
+    //Remove the 2min default timeout!
+    res.connection.setTimeout(0);
     const {newsItems} = req.body;
     await newsletterPuppeteer(newsItems);
     res.json("News uploaded!");

@@ -121,6 +121,18 @@ const NewsletterPage = props => {
         section={newsSection}
         uploadImage={uploadImage}
       />
+      
+      {isNewsUploadOver && (
+      <h2
+        style={{ cursor: "pointer", marginTop: 50 }}
+        onClick={() => {
+          setIsNewsUploadOver(false);
+          setNewsToUpload([]);
+        }}
+      >
+        News uploaded! <strong>Load more</strong>
+      </h2>
+      )}
 
       <div style={styles.cardContainer}>
         {isLoading && <Spinner />}
@@ -133,12 +145,10 @@ const NewsletterPage = props => {
             />
           ))}
 
-        {newsToUpload.length > 0 && !isNewsUploadOver && !isLoading ? (
+        {newsToUpload.length > 0 && !isNewsUploadOver && !isLoading && (
           <button style={styles.buttonCopy} onClick={() => handleNewsUpload()}>
             UPLOAD
           </button>
-        ) : (
-          isNewsUploadOver && <h2 style={{cursor: "pointer"}} onClick={() => setIsNewsUploadOver(false)}>News uploaded! Load more</h2>
         )}
       </div>
     </ScreenView>
