@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import HtmlContainer from "../components/HtmlContainer";
 import PageHeader from "../components/PageHeader";
@@ -15,7 +15,13 @@ function DnsGenerator() {
   const [htmlString, setHtmlString] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isIndexFormOpen, setIsIndexFormOpen] = useState(false);
+  const [isDnsDateRight, setIsDnsDateRight] = useState(true);
 
+  useEffect(() => {
+    if (!isDnsDateRight) {
+      alert("This DNS does not seem to be the one for today. Double-check before sending it out!");
+    }
+  }, [isDnsDateRight])
 
   const openNewsIndexForm = () => {
     setIsIndexFormOpen(true);
@@ -41,10 +47,12 @@ function DnsGenerator() {
           ? "/api/dns/dnsPuppeteerWord"
           : "http://localhost:8081/api/dns/dnsPuppeteerWord";
 
-      await axios.post(url);
-      console.log("Conversion done");
+      const response = await axios.post(url);
+      const { isDateRight } = response.data;
+      console.log(isDateRight);
       setIsDnsWordReady(true);
       setIsLoading(false);
+      setIsDnsDateRight(isDateRight);
     } catch(err) {
       console.error(err);
     }

@@ -17,8 +17,10 @@ router.get("/download", (req, res, next) => {
 
 router.post("/dnsPuppeteerWord", async (req, res, next) => {
   try {
-    const newsObject = await saveAsWord();
-    res.status(200).json(newsObject);
+    // const newsObject = await saveAsWord();
+    // res.status(200).json(newsObject);
+    const {jsonObj: newsObject, isDateRight} = await saveAsWord();
+    res.status(200).json({newsObject, isDateRight});
   } catch(err) {
     return next(err);
   }
