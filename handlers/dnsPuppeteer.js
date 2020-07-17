@@ -101,7 +101,7 @@ exports.saveAsWord = async () => {
 };
 
 exports.getHtml = async newsIndexes => {
-  const jsonObj = await scrapeDns();
+  const {jsonObj} = await scrapeDns();
   const htmlString = await fetchHtml(jsonObj, newsIndexes);
   return htmlString;
 };
