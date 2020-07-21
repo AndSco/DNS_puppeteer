@@ -20,6 +20,7 @@ app.use("/api/dns", dnsRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api", loginRoute);
 
+
 // To serve both frontend and backend - catch ALL. Serve static assets only if in production. 
 if (process.env.NODE_ENV === "production") {
   console.log("PRODUCTION!!!!");

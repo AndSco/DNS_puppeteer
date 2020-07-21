@@ -191,7 +191,6 @@ const uploadNewsItem = async newsItem => {
 
 const main = async newsItems => {
   try {
-    console.log("MAIN FUNCTION STARTING");
     const headlessOption = process.env.NODE_ENV === "production" ? true : false;
     [browser, page] = await startPuppeteer(headlessOption);
     await login(page, URL_NLETTER);
