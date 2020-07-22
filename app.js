@@ -7,6 +7,7 @@ const dnsRoutes = require("./routes/dnsGenerator");
 const newsletterRoutes = require("./routes/newsletter");
 const loginRoute = require("./routes/login");
 
+const textExtractorRoutes = require("./routes/textExtractor");
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use("/api/dns", dnsRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api", loginRoute);
+app.use("/api/textExtractor", textExtractorRoutes);
 
 
 // To serve both frontend and backend - catch ALL. Serve static assets only if in production. 

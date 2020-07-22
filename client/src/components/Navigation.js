@@ -24,6 +24,12 @@ const Navigation = ({logUserOut}) => {
             </Link>
           </li>
 
+          <li>
+            <Link to="/textExtractor">
+              TEXT EXTRACTOR
+            </Link>  
+          </li>
+
           <li onClick={logUserOut} style={styles.logOut}>LOG OUT</li>
 
         </ul>
@@ -52,7 +58,7 @@ const styles = {
   },
   linksContainer: {
     height: "100%",
-    width: 500,
+    width: 650,
     display: "flex",
     alignItems: "center"
   },

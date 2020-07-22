@@ -6,6 +6,7 @@ import NewsCard from "../components/NewsCard";
 import ScreenView from "../components/ScreenView";
 import Paragraph from "../components/Paragraph";
 import Spinner from "../components/Spinner";
+import { uploadFile } from "../utils";
 
 
 const NewsletterPage = props => {
@@ -35,17 +36,7 @@ const NewsletterPage = props => {
 
   const uploadImage = async (e) => {
     try {
-      const url =
-        process.env.NODE_ENV === "production"
-          ? "/api/newsletter/uploadImage"
-          : "http://localhost:8081/api/newsletter/uploadImage";
-          
-          
-      const imageData = new FormData();
-      const fileToUpload = e.target.files[0];;
-      imageData.append("imageFile", fileToUpload);
-      const response = await axios.post(url, imageData);
-      const { data: path } = response;
+      const path = await uploadFile(e);
       setImagePath(path);
 
     } catch(err) {
@@ -111,7 +102,7 @@ const NewsletterPage = props => {
 
   return (
     <ScreenView>
-      <PageHeader title="Newsletter Automator" />
+      <PageHeader title="Newsletter Automator" newsletter={true} />
       <Paragraph text="Select the index of the news to insert, as listed on https://ec.europa.eu/malta/news_en, choose the newsletter section & an accompanying photo. When all news are selected, upload them automatically to the Newsletter platform." />
       <InputAndButton
         onSelectFunction={setSection}
