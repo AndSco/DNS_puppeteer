@@ -37,6 +37,7 @@ const TextExtractorPage = () => {
   const [extractedText, setExtractedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState("eng");
+  const [hasCopiedText, setHasCopiedText] = useState(false);
   const changeLanguage = language => setLanguage(language);
  
 
@@ -97,9 +98,13 @@ const TextExtractorPage = () => {
             width: 200,
             color: "black"
           }}
-          onClick={() => copyString(extractedText)}
+          onClick={() => {
+            if (hasCopiedText) return;
+            copyString(extractedText);
+            setHasCopiedText(true);
+          }}
         >
-          COPY
+          {!hasCopiedText ? "COPY" : "TEXT COPIED TO CLIPBOARD"}
         </button>
         </>
       )}
