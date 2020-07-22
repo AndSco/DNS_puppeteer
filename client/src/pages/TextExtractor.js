@@ -129,7 +129,8 @@ const styles = {
   },
   textarea: {
     marginTop: "2rem",
-    padding: "1rem"
+    padding: "2rem", 
+    fontSize: 15
   },
   flagContainer: {
     padding: "0 1rem",
