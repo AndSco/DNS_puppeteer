@@ -6,8 +6,6 @@ const bodyParser = require("body-parser");
 const dnsRoutes = require("./routes/dnsGenerator");
 const newsletterRoutes = require("./routes/newsletter");
 const loginRoute = require("./routes/login");
-const { extendTimeoutMiddleware } = require("./middlewares");
-
 const textExtractorRoutes = require("./routes/textExtractor");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -17,8 +15,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cors());
-
-app.use(extendTimeoutMiddleware);
 
 app.use("/api/dns", dnsRoutes);
 app.use("/api/newsletter", newsletterRoutes);
