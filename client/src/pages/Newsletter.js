@@ -96,7 +96,7 @@ const NewsletterPage = props => {
         data: {
           newsItems: newsToUpload
         },
-        timeout: 0
+        timeout: 15 * 60 * 1000
       });
 
       const operationResult = await response.data;
