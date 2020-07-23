@@ -184,8 +184,7 @@ const uploadNewsItem = async newsItem => {
 const main = async newsItems => {
   try {
     const headlessOption = process.env.NODE_ENV === "production" ? true : false;
-    // [browser, page] = await startPuppeteer(headlessOption);
-    [browser, page] = await startPuppeteer(false);
+    [browser, page] = await startPuppeteer(headlessOption);
     await login(page, URL_NLETTER);
 
     for (const news of newsItems) {
