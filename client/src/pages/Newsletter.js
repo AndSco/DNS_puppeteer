@@ -82,7 +82,6 @@ const NewsletterPage = props => {
         ? "/api/newsletter/uploadNews"
         : "http://localhost:8081/api/newsletter/uploadNews";
 
-    // const response = await axios.post(url, {newsItems: newsToUpload});
     const response = await axios({
       method: "post",
       url: url,

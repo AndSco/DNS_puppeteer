@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const dnsRoutes = require("./routes/dnsGenerator");
 const newsletterRoutes = require("./routes/newsletter");
 const loginRoute = require("./routes/login");
+const { extendTimeoutMiddleware } = require("./middlewares");
 
 const textExtractorRoutes = require("./routes/textExtractor");
 
@@ -17,19 +18,20 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.use(extendTimeoutMiddleware);
+
 app.use("/api/dns", dnsRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api", loginRoute);
 app.use("/api/textExtractor", textExtractorRoutes);
 
-
-// To serve both frontend and backend - catch ALL. Serve static assets only if in production. 
+// To serve both frontend and backend - catch ALL. Serve static assets only if in production.
 if (process.env.NODE_ENV === "production") {
   console.log("PRODUCTION!!!!");
   app.use(express.static(path.join(__dirname, "client/build")));
-	app.get("*", (req, res) => {
-   		res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-	});
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
 }
 
 app.use((error, req, res, next) => {
@@ -42,23 +44,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-
 const port = process.env.PORT || 8081;
 app.listen(port, () => console.log(`SERVER IS ON PORT ${port}`));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const url =
 //   "https://news4me.eu/NewsBrief/dns/en/MT_latest.html?ticket=ST-36909089-g1WeAyd4OvnDCZaZCKuifKgIYIzKkoUHHOESwgPf6zxOdDjQqpuAQvNiFshWOyONW8HAJBKUl9ElhEwMmlrYbb-rS0vSrmBGYCaUhCSZJTKh8-qojYQGdzjzWol4I0xE7qH2D91F3BxHWB8VRXmOR99szy";
