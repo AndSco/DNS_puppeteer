@@ -7,7 +7,6 @@ import ScreenView from "../components/ScreenView";
 import Paragraph from "../components/Paragraph";
 import Spinner from "../components/Spinner";
 import { uploadFile } from "../utils";
-import Error from "../components/Error";
 
 const NewsletterPage = props => {
   const [newsSection, setNewsSection] = useState("");
@@ -16,7 +15,6 @@ const NewsletterPage = props => {
   const [newsToUpload, setNewsToUpload] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isNewsUploadOver, setIsNewsUploadOver] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => console.log("path", imagePath), [imagePath]);
 
@@ -39,7 +37,6 @@ const NewsletterPage = props => {
       const path = await uploadFile(e);
       setImagePath(path);
     } catch (err) {
-      setError(err.message);
       console.error(err);
     }
   };
@@ -68,10 +65,7 @@ const NewsletterPage = props => {
         setNewsToUpload([...newsToUpload, newsObject]);
         resetForm();
       })
-      .catch(err => {
-        console.error(err);
-        setError(err.message);
-      });
+      .catch(err => console.log(err));
   };
 
   const removeNewsFromList = newsItem => {
@@ -82,32 +76,26 @@ const NewsletterPage = props => {
   };
 
   const handleNewsUpload = async () => {
-    try {
-      setIsLoading(true);
-      const url =
-        process.env.NODE_ENV === "production"
-          ? "/api/newsletter/uploadNews"
-          : "http://localhost:8081/api/newsletter/uploadNews";
+    setIsLoading(true);
+    const url =
+      process.env.NODE_ENV === "production"
+        ? "/api/newsletter/uploadNews"
+        : "http://localhost:8081/api/newsletter/uploadNews";
 
-      // const response = await axios.post(url, {newsItems: newsToUpload});
-      const response = await axios({
-        method: "post",
-        url: url,
-        data: {
-          newsItems: newsToUpload
-        },
-        timeout: 15 * 60 * 1000
-      });
+    // const response = await axios.post(url, {newsItems: newsToUpload});
+    const response = await axios({
+      method: "post",
+      url: url,
+      data: {
+        newsItems: newsToUpload
+      },
+      timeout: 6 * 60 * 1000
+    });
 
-      const operationResult = await response.data;
-      console.log("oper res", operationResult);
-      setIsLoading(false);
-      setIsNewsUploadOver(true);
-    } catch (err) {
-      setIsLoading(false);
-      setError(err.message);
-      console.error(err);
-    }
+    const operationResult = await response.data;
+    console.log("oper res", operationResult);
+    setIsLoading(false);
+    setIsNewsUploadOver(true);
   };
 
   return (
@@ -122,8 +110,6 @@ const NewsletterPage = props => {
         section={newsSection}
         uploadImage={uploadImage}
       />
-
-      {error && <Error errorMessage={error} />}
 
       {isNewsUploadOver && (
         <h2
