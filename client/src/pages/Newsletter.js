@@ -8,7 +8,6 @@ import Paragraph from "../components/Paragraph";
 import Spinner from "../components/Spinner";
 import { uploadFile } from "../utils";
 
-
 const NewsletterPage = props => {
   const [newsSection, setNewsSection] = useState("");
   const [newsIndex, setNewsIndex] = useState("");
@@ -17,34 +16,30 @@ const NewsletterPage = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [isNewsUploadOver, setIsNewsUploadOver] = useState(false);
 
-  useEffect(() => console.log("path", imagePath), [imagePath])
+  useEffect(() => console.log("path", imagePath), [imagePath]);
 
   const resetForm = () => {
     setNewsSection("");
     setNewsIndex("");
     setImagePath("");
-  }
+  };
 
   const setSection = selection => {
     setNewsSection(selection);
-  }
+  };
 
   const setIndex = index => {
     setNewsIndex(index);
-  }
+  };
 
-
-  const uploadImage = async (e) => {
+  const uploadImage = async e => {
     try {
       const path = await uploadFile(e);
       setImagePath(path);
-
-    } catch(err) {
+    } catch (err) {
       console.error(err);
-      
     }
-  }
-  
+  };
 
   const getNews = () => {
     if (newsIndex === "" || newsSection === "" || imagePath === "") {
@@ -55,27 +50,30 @@ const NewsletterPage = props => {
       process.env.NODE_ENV === "production"
         ? "/api/newsletter/createJsonNews"
         : "http://localhost:8081/api/newsletter/createJsonNews";
-    
-    axios.get(url, {
-      params: {
-        index: newsIndex, 
-        section: newsSection, 
-        imagePath: imagePath
-      }
-    })
-    .then(res => {
-      const newsObject = res.data;
-      newsObject.imagePath = imagePath;
-      setNewsToUpload([...newsToUpload, newsObject]);
-      resetForm();
-    })
-    .catch(err => console.log(err))
-  }
+
+    axios
+      .get(url, {
+        params: {
+          index: newsIndex,
+          section: newsSection,
+          imagePath: imagePath
+        }
+      })
+      .then(res => {
+        const newsObject = res.data;
+        newsObject.imagePath = imagePath;
+        setNewsToUpload([...newsToUpload, newsObject]);
+        resetForm();
+      })
+      .catch(err => console.log(err));
+  };
 
   const removeNewsFromList = newsItem => {
-    const filteredList = newsToUpload.filter(news => news.title !== newsItem.title);
+    const filteredList = newsToUpload.filter(
+      news => news.title !== newsItem.title
+    );
     setNewsToUpload(filteredList);
-  }
+  };
 
   const handleNewsUpload = async () => {
     setIsLoading(true);
@@ -83,14 +81,14 @@ const NewsletterPage = props => {
       process.env.NODE_ENV === "production"
         ? "/api/newsletter/uploadNews"
         : "http://localhost:8081/api/newsletter/uploadNews";
-    
+
     // const response = await axios.post(url, {newsItems: newsToUpload});
     const response = await axios({
-      method: 'post',
-      url: url, 
+      method: "post",
+      url: url,
       data: {
         newsItems: newsToUpload
-      }, 
+      },
       timeout: 6 * 60 * 1000
     });
 
@@ -98,7 +96,7 @@ const NewsletterPage = props => {
     console.log("oper res", operationResult);
     setIsLoading(false);
     setIsNewsUploadOver(true);
-  }
+  };
 
   return (
     <ScreenView>
@@ -112,17 +110,17 @@ const NewsletterPage = props => {
         section={newsSection}
         uploadImage={uploadImage}
       />
-      
+
       {isNewsUploadOver && (
-      <h2
-        style={{ cursor: "pointer", marginTop: 50 }}
-        onClick={() => {
-          setIsNewsUploadOver(false);
-          setNewsToUpload([]);
-        }}
-      >
-        News uploaded! <strong>Load more</strong>
-      </h2>
+        <h2
+          style={{ cursor: "pointer", marginTop: 50 }}
+          onClick={() => {
+            setIsNewsUploadOver(false);
+            setNewsToUpload([]);
+          }}
+        >
+          News uploaded! <strong>Load more</strong>
+        </h2>
       )}
 
       <div style={styles.cardContainer}>
@@ -144,23 +142,23 @@ const NewsletterPage = props => {
       </div>
     </ScreenView>
   );
-}
+};
 
 const styles = {
   buttonCopy: {
     width: 100,
     height: 100,
     color: "#1E2019",
-    backgroundColor: "#FFE800", 
-    position: "absolute", 
+    backgroundColor: "#FFE800",
+    position: "absolute",
     top: 30,
-    left: "90%", 
+    left: "90%",
     borderRadius: "50%"
   },
 
   cardContainer: {
-    position: "relative", 
-    width: "80%", 
+    position: "relative",
+    width: "80%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

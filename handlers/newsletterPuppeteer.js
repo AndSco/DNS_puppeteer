@@ -10,7 +10,6 @@ const getIframe = async () => {
   return frame;
 };
 
-
 const startCreatingNews = async () => {
   try {
     await page.waitFor("#toolbar > ul > li:nth-child(1)");
@@ -24,10 +23,10 @@ const startCreatingNews = async () => {
       "#toolbar > ul > li:nth-child(1) > ul > li:nth-child(2) > a"
     );
     await createBtn.click();
-  } catch(err) {
+  } catch (err) {
     throw err;
   }
-}
+};
 
 const enterNewsTitle = async title => {
   try {
@@ -35,11 +34,10 @@ const enterNewsTitle = async title => {
     await page.type("#item_title", title, { delay: 100 });
     const continueButton = await page.$(".actionButton");
     await continueButton.click();
-  } catch(err) {
-    throw(err)
+  } catch (err) {
+    throw err;
   }
-}
-
+};
 
 const enterNewsDetails = async (link, teaser) => {
   try {
@@ -57,10 +55,10 @@ const enterNewsDetails = async (link, teaser) => {
     await frame.type("textarea", teaser);
     const updateButton = await frame.$(".actionButton.pinkBT");
     await updateButton.click();
-  } catch(err) {
-    throw(err);
+  } catch (err) {
+    throw err;
   }
-}
+};
 
 const addPicture = async imagePath => {
   try {
@@ -79,10 +77,10 @@ const addPicture = async imagePath => {
     await inputUploadHandle.uploadFile(`./${imagePath}`);
     const savePicBtn = await frame.$("body > div > a");
     await savePicBtn.click();
-  } catch(err) {
-    throw(err);
+  } catch (err) {
+    throw err;
   }
-}
+};
 
 const addNewsSection = async section => {
   try {
@@ -124,11 +122,10 @@ const addNewsSection = async section => {
       "body > div.popPadding > div:nth-child(2) > div.FL > a"
     );
     await proceedButton.click();
-  } catch(err) {
-    throw(err);
+  } catch (err) {
+    throw err;
   }
-}
-
+};
 
 const validateNews = async () => {
   try {
@@ -152,22 +149,20 @@ const validateNews = async () => {
       "body > div > div > div > div > div > div.content2cols.clearfix.item-max > div > div.cntRight.child2 > div:nth-child(6) > div > div > ul > li > span.links > a:nth-child(2)"
     );
     await validate.click();
-  } catch(err) {
-    throw(err);
+  } catch (err) {
+    throw err;
   }
-}
-
+};
 
 const goBackToTaskpane = async () => {
   try {
     await page.waitFor("#headNav > a:nth-child(1)");
     const backButton = await page.$("#headNav > a:nth-child(1)");
     await backButton.click();
-  } catch(err) {
-    throw(err);
+  } catch (err) {
+    throw err;
   }
-}
-
+};
 
 const uploadNewsItem = async newsItem => {
   try {
@@ -181,24 +176,22 @@ const uploadNewsItem = async newsItem => {
     await addNewsSection(section);
     await validateNews();
     await goBackToTaskpane();
-
-  } catch(err) {
-      console.error(err);
+  } catch (err) {
+    console.error(err);
   }
-}
-
-
+};
 
 const main = async newsItems => {
   try {
     const headlessOption = process.env.NODE_ENV === "production" ? true : false;
-    [browser, page] = await startPuppeteer(headlessOption);
+    // [browser, page] = await startPuppeteer(headlessOption);
+    [browser, page] = await startPuppeteer(false);
     await login(page, URL_NLETTER);
 
     for (const news of newsItems) {
       await uploadNewsItem(news);
     }
-    
+
     await browser.close();
   } catch (err) {
     console.error(err);
@@ -206,4 +199,3 @@ const main = async newsItems => {
 };
 
 module.exports = main;
-
