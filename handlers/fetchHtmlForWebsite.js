@@ -1,7 +1,7 @@
 const util = require("util");
 
 const createHtml = async (newsObj, indexes) => {
-  console.log("selected indexes", indexes)
+  console.log("selected indexes", indexes);
   let htmlString = "";
   const { content } = newsObj;
 
@@ -14,20 +14,18 @@ const createHtml = async (newsObj, indexes) => {
 
   allArticles = allArticles.filter((_, index) => indexes.indexOf(index) !== -1);
 
-  allArticles.forEach((article) => {
+  allArticles.forEach(article => {
     console.log(util.inspect(article, false, null, true));
-    const {section, title, body, links} = article;
-    
-    const heading = `
-      <h3>${section}</h3>
-      <p></p>`;
+    const { section, title, body, links } = article;
+
+    const heading = `<h3>${section}</h3>`;
     htmlString += heading;
 
     const titleBody = `
         <p><b>${title}</b></p>
         <p>${body}</p>`;
     htmlString += titleBody;
-    
+
     links.map((link, index) => {
       const linkString = `
         <p><i>
@@ -38,8 +36,7 @@ const createHtml = async (newsObj, indexes) => {
         htmlString += "<p></p>";
       }
     });
-  })
-
+  });
 
   // for (let section in content) {
   //   const heading = `
@@ -74,7 +71,7 @@ module.exports = createHtml;
 // const createHtml = async (newsObj) => {
 //   let htmlString = "";
 //   const {content} = newsObj;
-  
+
 //   for (let section in content) {
 //     const heading = `
 //       <h3>${section}</h3>
@@ -93,7 +90,7 @@ module.exports = createHtml;
 //           <p><i>
 //             <a href="${link.hyperLinkUrl}">${link.sourceNewspaper}</a>: ${link.restOfLink}
 //           </i></p>`;
-//         htmlString += linkString;  
+//         htmlString += linkString;
 //         if (index === articleLinks.length - 1) {
 //           htmlString += "<p></p>";
 //         }
