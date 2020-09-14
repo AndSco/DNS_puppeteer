@@ -1,14 +1,18 @@
 import axios from "axios";
 
-export const extractIndexes = (string) => {
-  const purifiedStr = string.match(/[0-9]/g);
-  if (!purifiedStr) {
-    return null;
-  }
-  return purifiedStr 
-    .map(item => +item);
-}
+// export const extractIndexes = string => {
+//   const purifiedStr = string.match(/[0-9]/g);
+//   if (!purifiedStr) {
+//     return null;
+//   }
+//   return purifiedStr.map(item => +item);
+// };
 
+export const extractIndexes = string => {
+  const { input } = string.match(/\d+/);
+  if (!input) return null;
+  return input.split(", ").map(item => +item);
+};
 
 export const uploadFile = async e => {
   try {
@@ -23,12 +27,11 @@ export const uploadFile = async e => {
     const response = await axios.post(url, imageData);
     const { data: path } = response;
     return path;
-    
   } catch (err) {
     console.error(err);
   }
 };
 
-export const copyString = (text) => {
+export const copyString = text => {
   navigator.clipboard.writeText(text);
 };
