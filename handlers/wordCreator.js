@@ -1,7 +1,7 @@
 const officegen = require("officegen");
 const fs = require("fs");
 
-const createWordDoc = (configObject) => {
+const createWordDoc = configObject => {
   // Create an empty Word object:
   let docx = officegen("docx");
 
@@ -22,7 +22,6 @@ const createWordDoc = (configObject) => {
 
   pObj = docx.createP();
 
-
   for (let section in configObject.content) {
     pObj.addText(section, { bold: true, font_size: 14 });
     pObj = docx.createP();
@@ -34,19 +33,18 @@ const createWordDoc = (configObject) => {
       pObj.addLineBreak();
       const articleLinks = article.links;
       articleLinks.forEach(link => {
-        // pObj = docx.createP();
         pObj.addLineBreak();
         pObj.addLineBreak();
         pObj.addText(`${link.sourceNewspaper}:`, {
           link: link.hyperLinkUrl,
-          color: link.hyperLinkUrl === "" ? "black" : "3C46E7", 
+          color: link.hyperLinkUrl === "" ? "black" : "3C46E7",
           italic: true
         });
-        pObj.addText(link.restOfLink, {italic: true});
-      })
+        pObj.addText(link.restOfLink, { italic: true });
+      });
       pObj.addLineBreak();
       pObj = docx.createP();
-    }) 
+    });
   }
 
   // Let's generate the Word document into a file:
@@ -58,7 +56,6 @@ const createWordDoc = (configObject) => {
 
   // Async call to generate the output file:
   docx.generate(out);
-
-}
+};
 
 module.exports = createWordDoc;

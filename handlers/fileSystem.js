@@ -2,8 +2,6 @@ const path = require("path");
 const fs = require("fs");
 const directory = "public/uploads";
 
-
-
 const goOnAndDelete = () => {
   fs.readdir(directory, (err, files) => {
     if (err) console.error(err);
@@ -24,27 +22,8 @@ const goOnAndDelete = () => {
   });
 };
 
-
-// const goOnAndDelete = () => {
-//   fs.readdir(directory, (err, files) => {
-//     if (err) console.error(err);
-    
-//     console.log(`There are ${files.length} pictures in the uploads folder`)
-    
-//     if (files.length === 0) {
-//       return;
-//     }
-
-//     for (const file of files) {
-//       fs.unlink(path.join(directory, file), err => {
-//         if (err) throw err;
-//       });
-//     }
-//   });
-// }
-
 exports.deleteAllImagesInUploadsFolder = () => {
-  //check if folder exists 
+  //check if folder exists
   fs.access(directory, error => {
     if (error) {
       console.log("Directory does not exist.");
@@ -54,25 +33,4 @@ exports.deleteAllImagesInUploadsFolder = () => {
       goOnAndDelete();
     }
   });
-}
-
-
-// exports.deleteAllImagesInUploadsFolder = (req, res, next) => {
-//   try {
-//     fs.readdir(directory, (err, files) => {
-//       if (err) throw err;
-
-//       for (const file of files) {
-//         fs.unlink(path.join(directory, file), err => {
-//           if (err) throw err;
-//         });
-//       }
-//     });
-
-//     res
-//       .status(200)
-//       .json({ message: "All images in uploads folder cleared up" });
-//   } catch (err) {
-//     return next(err);
-//   }
-// };
+};

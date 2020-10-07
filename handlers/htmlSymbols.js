@@ -1335,9 +1335,7 @@ exports.replaceWithSymbol = text => {
     .join(" ");
 };
 
-
-
-// In regex, $0 is the entire matched string. $1 is the first subpattern (ie. nbsp, euro...). 
+// In regex, $0 is the entire matched string. $1 is the first subpattern (ie. nbsp, euro...).
 exports.replaceHtmlEntites = (function() {
   const translate_re = /&(nbsp|euro|ndash|amp|rsquo|rdquo|ldquo|lsquo|rsquo|aacute|agrave|egrave|eacute);/g;
   const translate = {
@@ -1363,4 +1361,3 @@ exports.replaceHtmlEntites = (function() {
     return s.replace(translate_re, translator);
   };
 })();
-

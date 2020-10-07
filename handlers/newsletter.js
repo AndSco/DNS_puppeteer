@@ -2,10 +2,9 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const newsletterPuppeteer = require("./newsletterPuppeteer");
 
-
 exports.createNews = async (req, res, next) => {
   const { data } = await axios.get("https://ec.europa.eu/malta/news_en");
-  const {index, section} = req.query;
+  const { index, section } = req.query;
   const $ = await cheerio.load(data, {
     xml: {
       normalizeWhitespace: true
@@ -38,17 +37,14 @@ exports.createNews = async (req, res, next) => {
   res.status(200).json(newsObj);
 };
 
-
 exports.uploadNews = async (req, res, next) => {
   try {
     //Remove the 2min default timeout!
     res.connection.setTimeout(0);
-    const {newsItems} = req.body;
+    const { newsItems } = req.body;
     await newsletterPuppeteer(newsItems);
     res.json("News uploaded!");
-  } catch(err) {
+  } catch (err) {
     return next(err);
   }
-}
-
-
+};

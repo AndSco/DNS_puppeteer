@@ -2,7 +2,6 @@ import React from "react";
 import Input from "./Input";
 
 const DnsItemsNumberForm = ({ closeNewsIndexForm }) => {
-
   return (
     <Input
       inputExplanation="Enter the news indexes, comma-separated"
@@ -12,6 +11,5 @@ const DnsItemsNumberForm = ({ closeNewsIndexForm }) => {
     />
   );
 };
-
 
 export default DnsItemsNumberForm;

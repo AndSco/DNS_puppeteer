@@ -3,7 +3,6 @@ const createUrl = require("./linkManager");
 const dates = require("./dateManagement");
 const { replaceHtmlEntites } = require("./htmlSymbols");
 
-
 const createNewsObject = async pageHtml => {
   const $ = await cheerio.load(pageHtml, {
     xml: {
@@ -88,6 +87,4 @@ const createNewsObject = async pageHtml => {
   return dnsObject;
 };
 
-
 module.exports = createNewsObject;
-

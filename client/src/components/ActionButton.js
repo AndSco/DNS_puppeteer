@@ -2,9 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileWord, faCode } from "@fortawesome/free-solid-svg-icons";
 
-
-
-const ActionButton = ({text, onClickFunction, isReady, icon}) => {
+const ActionButton = ({ text, onClickFunction, isReady, icon }) => {
   return (
     <div
       style={{
@@ -16,26 +14,29 @@ const ActionButton = ({text, onClickFunction, isReady, icon}) => {
       className="action-button"
     >
       <h5>
-        <FontAwesomeIcon icon={icon === "word" ? faFileWord : faCode} style={styles.icon} />
+        <FontAwesomeIcon
+          icon={icon === "word" ? faFileWord : faCode}
+          style={styles.icon}
+        />
         {text}
       </h5>
     </div>
   );
-}
+};
 
 const styles = {
   button: {
-    cursor: "pointer", 
-    margin: "2rem", 
-    padding: "0 2rem", 
-    width: 330, 
+    cursor: "pointer",
+    margin: "2rem",
+    padding: "0 2rem",
+    width: 330,
     borderRadius: "50px"
-  }, 
+  },
   icon: {
-    marginRight: 10, 
-    opacity: .7, 
+    marginRight: 10,
+    opacity: 0.7,
     fontSize: 23
   }
-}
+};
 
 export default ActionButton;

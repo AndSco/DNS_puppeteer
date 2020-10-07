@@ -1,7 +1,6 @@
-// DNS MANAGEMENT 
+// DNS MANAGEMENT
 const secTitles = document.querySelectorAll(".center_heading_medium");
 const thematicSections = [];
-
 
 const formatArticle = articleArray => {
   const articleObj = {};
@@ -17,7 +16,7 @@ const formatArticle = articleArray => {
   articleObj.title = articleTitle;
   articleObj.body = articleBody;
   articleObj.links = articleLinks;
-  
+
   return articleObj;
 };
 
@@ -37,21 +36,7 @@ const recursion = (destination, startingElement) => {
   return groupSections(firstElement);
 };
 
-
 secTitles.forEach(title => {
-  thematicSections[title.innerText] = { articles: []};
+  thematicSections[title.innerText] = { articles: [] };
   recursion(title.innerText, title);
 });
-
-console.log(thematicSections);
-
-
-
-
-// AUTOMATIC LOGIN
-// const login = () => {
-//   const userNameInput = document.querySelector("#username");
-//   const nextButton = document.querySelector(".btn-primary");
-//   userNameInput.value = "scorcan";
-//   nextButton.click();
-// }

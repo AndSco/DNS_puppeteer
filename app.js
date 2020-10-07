@@ -42,21 +42,3 @@ app.use((error, req, res, next) => {
 
 const port = process.env.PORT || 8081;
 app.listen(port, () => console.log(`SERVER IS ON PORT ${port}`));
-
-// const url =
-//   "https://news4me.eu/NewsBrief/dns/en/MT_latest.html?ticket=ST-36909089-g1WeAyd4OvnDCZaZCKuifKgIYIzKkoUHHOESwgPf6zxOdDjQqpuAQvNiFshWOyONW8HAJBKUl9ElhEwMmlrYbb-rS0vSrmBGYCaUhCSZJTKh8-qojYQGdzjzWol4I0xE7qH2D91F3BxHWB8VRXmOR99szy";
-
-// axios
-//   .get(url)
-//   .then(res => {
-//     const { data } = res;
-//     const $ = cheerio.load(data, {
-//       xml: {
-//         normalizeWhitespace: true
-//       }
-//     });
-//     // console.log(data);
-//     // console.log("html", $.html());
-//     // $("#header_title");
-//   })
-//   .catch(err => console.log("error", err.mesage));
