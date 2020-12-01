@@ -16,7 +16,12 @@ router.get("/download", (req, res, next) => {
 
 router.post("/dnsPuppeteerWord", async (req, res, next) => {
   try {
-    const { jsonObj: newsObject, isDateRight } = await saveAsWord();
+    const { ecasUsername, ecasPassword } = req.body;
+    console.log("ECAS USERNAME", ecasUsername, "ECAS PWORD", ecasPassword);
+    const { jsonObj: newsObject, isDateRight } = await saveAsWord(
+      ecasUsername,
+      ecasPassword
+    );
     res.status(200).json({ newsObject, isDateRight });
   } catch (err) {
     return next(err);
@@ -25,8 +30,8 @@ router.post("/dnsPuppeteerWord", async (req, res, next) => {
 
 router.post("/dnsPuppeteerHtml", async (req, res, next) => {
   try {
-    const { newsIndexes } = req.body;
-    const createdHtml = await getHtml(newsIndexes);
+    const { newsIndexes, ecasUsername, ecasPassword } = req.body;
+    const createdHtml = await getHtml(newsIndexes, ecasUsername, ecasPassword);
     res.status(200).json(createdHtml);
   } catch (err) {
     return next(err);

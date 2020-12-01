@@ -90,7 +90,9 @@ const NewsletterPage = props => {
       method: "post",
       url: url,
       data: {
-        newsItems: newsToUpload
+        newsItems: newsToUpload,
+        ecasUsername,
+        ecasPassword
       },
       timeout: 6 * 60 * 1000
     });

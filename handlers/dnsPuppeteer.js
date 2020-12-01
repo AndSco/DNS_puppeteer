@@ -25,9 +25,9 @@ const getPageHtml = async () => {
   return { html, isDateRight };
 };
 
-const scrapeDns = async () => {
+const scrapeDns = async (ecasUsername, ecasPassword) => {
   [browser, page] = await startPuppeteer(true);
-  await login(page, URL_DNS);
+  await login(page, URL_DNS, ecasUsername, ecasPassword);
   // const pageHtml = await getPageHtml();
   const { html, isDateRight } = await getPageHtml();
   await browser.close();
@@ -36,14 +36,14 @@ const scrapeDns = async () => {
   return { jsonObj, isDateRight };
 };
 
-exports.saveAsWord = async () => {
-  const { jsonObj, isDateRight } = await scrapeDns();
+exports.saveAsWord = async (ecasUsername, ecasPassword) => {
+  const { jsonObj, isDateRight } = await scrapeDns(ecasUsername, ecasPassword);
   createWord(jsonObj);
   return { jsonObj, isDateRight };
 };
 
-exports.getHtml = async newsIndexes => {
-  const { jsonObj } = await scrapeDns();
+exports.getHtml = async (newsIndexes, ecasUsername, ecasPassword) => {
+  const { jsonObj } = await scrapeDns(ecasUsername, ecasPassword);
   const htmlString = await fetchHtml(jsonObj, newsIndexes);
   return htmlString;
 };

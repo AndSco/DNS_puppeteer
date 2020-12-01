@@ -1,20 +1,33 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faNewspaper, faEnvelopeOpenText, faImage } from "@fortawesome/free-solid-svg-icons";
+import {
+  faNewspaper,
+  faEnvelopeOpenText,
+  faImage,
+  faKey
+} from "@fortawesome/free-solid-svg-icons";
 
 const PageHeader = props => {
   return (
     <div style={styles.topPart}>
       <h2>{props.title.toUpperCase()}</h2>
       <FontAwesomeIcon
-        icon={props.dns ? faNewspaper : props.newsletter ? faEnvelopeOpenText : faImage}
+        icon={
+          props.dns
+            ? faNewspaper
+            : props.auth
+            ? faKey
+            : props.newsletter
+            ? faEnvelopeOpenText
+            : faImage
+        }
         style={styles.icon}
         size="3x"
         className="title-icon"
       />
     </div>
   );
-}
+};
 
 const styles = {
   topPart: {

@@ -54,7 +54,7 @@ function DnsGenerator() {
           ? "/api/dns/dnsPuppeteerWord"
           : "http://localhost:8081/api/dns/dnsPuppeteerWord";
 
-      const response = await axios.post(url);
+      const response = await axios.post(url, { ecasUsername, ecasPassword });
       const { isDateRight } = response.data;
       console.log(isDateRight);
       setIsDnsWordReady(true);
@@ -73,7 +73,11 @@ function DnsGenerator() {
         ? "/api/dns/dnsPuppeteerHtml"
         : "http://localhost:8081/api/dns//dnsPuppeteerHtml";
 
-    const { data } = await axios.post(url, { newsIndexes: newsIndexes });
+    const { data } = await axios.post(url, {
+      newsIndexes: newsIndexes,
+      ecasUsername,
+      ecasPassword
+    });
     console.log("HTML", data);
     setHtmlString(data);
     setIsLoading(false);

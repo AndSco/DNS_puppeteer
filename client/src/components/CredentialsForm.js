@@ -42,14 +42,14 @@ export const CredentialsForm = () => {
         style={styles.input}
       />
       <input
-        type="password"
+        type="text"
         placeholder="ECAS Password"
         value={password}
         onChange={e => changePassword(e.target.value)}
         style={styles.input}
       />
       <button type="submit" style={styles.button}>
-        SAVE
+        CONTINUE
       </button>
     </form>
   );

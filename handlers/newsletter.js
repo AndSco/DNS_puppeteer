@@ -41,8 +41,8 @@ exports.uploadNews = async (req, res, next) => {
   try {
     //Remove the 2min default timeout!
     res.connection.setTimeout(0);
-    const { newsItems } = req.body;
-    await newsletterPuppeteer(newsItems);
+    const { newsItems, ecasUsername, ecasPassword } = req.body;
+    await newsletterPuppeteer(newsItems, ecasUsername, ecasPassword);
     res.json("News uploaded!");
   } catch (err) {
     return next(err);
