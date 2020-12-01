@@ -1,5 +1,4 @@
 const puppeteer = require("puppeteer");
-const { USERNAME, PASSWORD } = require("../config");
 
 exports.startPuppeteer = async (HEADLESS = false) => {
   const browser = await puppeteer.launch({
@@ -15,7 +14,6 @@ exports.login = async (page, url, ecasUsername, ecasPassword) => {
     await page.goto(url);
     await page.waitFor("#username");
     await page.waitFor(1000);
-    // await page.type("#username", USERNAME, { delay: 100 });
     await page.type("#username", ecasUsername, { delay: 100 });
     const nextButton = await page.$("input.btn.btn-primary.btn-block");
     await nextButton.click();
@@ -23,7 +21,6 @@ exports.login = async (page, url, ecasUsername, ecasPassword) => {
     await page.waitForNavigation({ waitUntil: "domcontentloaded" });
     await page.waitFor("#password");
     await page.waitFor(1000);
-    // await page.type("#password", PASSWORD, { delay: 100 });
     await page.type("#password", ecasPassword, { delay: 100 });
     const loginBtn = await page.$("#loginForm > div > input");
     await loginBtn.click();

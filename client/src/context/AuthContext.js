@@ -14,11 +14,6 @@ export const AuthContextProvider = ({ children }) => {
   const [ecasUsername, setEcasUsername] = useState("");
   const [ecasPassword, setEcasPassword] = useState("");
 
-  React.useEffect(() => {
-    console.log("ECAS U", ecasUsername);
-    console.log("ECAS P", ecasPassword);
-  }, [ecasUsername, ecasPassword]);
-
   const saveEcasCredentials = (username, password) => {
     setInsertedEcasCredentials(true);
     setEcasUsername(username);

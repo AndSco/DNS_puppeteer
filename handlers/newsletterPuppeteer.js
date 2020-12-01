@@ -110,7 +110,6 @@ const addNewsSection = async section => {
         current
       );
       if (sectionName.trim().toLowerCase() === section.toLowerCase()) {
-        console.log("MATCH FOUND!");
         rightChoice = await current.$("span");
         break;
       }
@@ -167,7 +166,6 @@ const goBackToTaskpane = async () => {
 const uploadNewsItem = async newsItem => {
   try {
     const { title, link, teaser, imagePath, section } = newsItem;
-    console.log("now uploading", newsItem);
 
     await startCreatingNews();
     await enterNewsTitle(title);

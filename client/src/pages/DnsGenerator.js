@@ -21,7 +21,6 @@ function DnsGenerator() {
   const { ecasUsername, ecasPassword, insertedEcasCredentials } = useContext(
     AuthContext
   );
-  console.log("USERNAME", ecasUsername);
 
   useEffect(() => {
     if (!isDnsDateRight) {

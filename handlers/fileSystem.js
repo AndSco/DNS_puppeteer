@@ -12,7 +12,6 @@ const goOnAndDelete = () => {
 
     for (const file of files) {
       const fileDir = path.join("./", file);
-      console.log("fileDir", fileDir);
       if (fileDir !== "placeholder.js") {
         fs.unlink(path.join(directory, file), err => {
           if (err) throw err;

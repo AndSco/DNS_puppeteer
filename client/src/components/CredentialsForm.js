@@ -13,10 +13,6 @@ export const CredentialsForm = () => {
   const changeUsername = handleChange("username");
   const changePassword = handleChange("password");
 
-  React.useEffect(() => {
-    console.log(username, password);
-  }, [username, password]);
-
   const handleSubmit = (usernameInput, passwordInput) => {
     if (!usernameInput.length || !passwordInput.length) {
       alert("Enter your ecas credentials!");

@@ -17,7 +17,6 @@ router.get("/download", (req, res, next) => {
 router.post("/dnsPuppeteerWord", async (req, res, next) => {
   try {
     const { ecasUsername, ecasPassword } = req.body;
-    console.log("ECAS USERNAME", ecasUsername, "ECAS PWORD", ecasPassword);
     const { jsonObj: newsObject, isDateRight } = await saveAsWord(
       ecasUsername,
       ecasPassword

@@ -14,7 +14,6 @@ const checkIsTheRightDate = async () => {
     .trim()
     .split("/")[0];
   const dayToday = new Date().getDate();
-  console.log("is the day correct?", +releaseDay === dayToday);
   return +releaseDay === dayToday;
 };
 
@@ -32,7 +31,6 @@ const scrapeDns = async (ecasUsername, ecasPassword) => {
   const { html, isDateRight } = await getPageHtml();
   await browser.close();
   const jsonObj = await createNewsObject(html);
-  console.log("JSON", jsonObj);
   return { jsonObj, isDateRight };
 };
 

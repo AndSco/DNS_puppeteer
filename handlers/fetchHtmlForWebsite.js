@@ -1,7 +1,6 @@
 const util = require("util");
 
 const createHtml = async (newsObj, indexes) => {
-  console.log("selected indexes", indexes);
   let htmlString = "";
   const { content } = newsObj;
 

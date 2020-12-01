@@ -64,7 +64,6 @@ const createNewsObject = async pageHtml => {
         articleObj.body = articleBody;
         articleObj.links = linksArray;
         articleObj.section = destination;
-        console.log("SECTION", destination);
 
         destinationArray.push(articleObj);
         groupSections(nextSibling);
