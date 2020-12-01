@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PageHeader from "../components/PageHeader";
 import InputAndButton from "../components/InputAndButton";
 import axios from "axios";
@@ -7,6 +7,8 @@ import ScreenView from "../components/ScreenView";
 import Paragraph from "../components/Paragraph";
 import Spinner from "../components/Spinner";
 import { uploadFile } from "../utils";
+import { AuthContext } from "../context/AuthContext";
+import { EcasAuthentication } from "./EcasAuthentication";
 
 const NewsletterPage = props => {
   const [newsSection, setNewsSection] = useState("");
@@ -15,7 +17,9 @@ const NewsletterPage = props => {
   const [newsToUpload, setNewsToUpload] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isNewsUploadOver, setIsNewsUploadOver] = useState(false);
-
+  const { insertedEcasCredentials, ecasUsername, ecasPassword } = useContext(
+    AuthContext
+  );
   useEffect(() => console.log("path", imagePath), [imagePath]);
 
   const resetForm = () => {
@@ -96,6 +100,10 @@ const NewsletterPage = props => {
     setIsLoading(false);
     setIsNewsUploadOver(true);
   };
+
+  if (!insertedEcasCredentials) {
+    return <EcasAuthentication />;
+  }
 
   return (
     <ScreenView>
