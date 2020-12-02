@@ -27,3 +27,18 @@ export const uploadFile = async e => {
 export const copyString = text => {
   navigator.clipboard.writeText(text);
 };
+
+export const saveInStorage = (key, value) =>
+  sessionStorage.setItem(key, JSON.stringify(value));
+
+const isInStorage = key => !!sessionStorage.getItem(key);
+
+export const getFromStorage = key => {
+  try {
+    return isInStorage(key) ? JSON.parse(sessionStorage.getItem(key)) : null;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const deleteFromStorage = key => sessionStorage.removeItem(key);

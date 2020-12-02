@@ -1,9 +1,14 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { getFromStorage, saveInStorage } from "../utils";
 
 export const CredentialsForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(
+    getFromStorage("ecasUsername") || ""
+  );
+  const [password, setPassword] = useState(
+    getFromStorage("ecasPassword") || ""
+  );
 
   const { saveEcasCredentials } = useContext(AuthContext);
 
@@ -26,6 +31,8 @@ export const CredentialsForm = () => {
     <form
       onSubmit={e => {
         e.preventDefault();
+        saveInStorage("ecasUsername", username);
+        saveInStorage("ecasPassword", password);
         handleSubmit(username, password);
       }}
       style={styles.form}
